@@ -10,7 +10,11 @@
  * memakai Gemini sungguhan (pastikan GEMINI_API_KEY terisi di .env).
  */
 import { randomUUID } from 'node:crypto';
-import 'dotenv/config';
+import dotenv from 'dotenv';
+
+// Override so the .env value always wins over any stale env var exported in
+// ~/.bashrc that would otherwise make the API key invalid.
+dotenv.config({ override: true });
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const SECRET = process.env.AI_ASSISTANT_SECRET || 'your_internal_secret';

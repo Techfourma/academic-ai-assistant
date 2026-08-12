@@ -1,9 +1,14 @@
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { z } from 'zod';
+
+// Load .env with override so the project's .env ALWAYS wins over any
+// pre-existing GEMINI_API_KEY (or other) exported in the shell environment.
+// Otherwise a stale placeholder exported in ~/.bashrc overrides the real key.
+dotenv.config({ override: true });
 
 const envSchema = z.object({
   GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
-  GEMINI_MODEL: z.string().default('gemini-2.0-flash'),
+  GEMINI_MODEL: z.string().default('gemini-2.5-flash'),
 
   AI_ASSISTANT_SECRET: z.string().min(1, 'AI_ASSISTANT_SECRET is required'),
 

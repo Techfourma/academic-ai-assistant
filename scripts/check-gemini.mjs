@@ -8,13 +8,17 @@
  * Membaca GEMINI_API_KEY dan GEMINI_MODEL dari .env, lalu memanggil Gemini
  * sekali. Tidak menampilkan isi key.
  */
-import 'dotenv/config';
+import dotenv from 'dotenv';
 import { GoogleGenerativeAI } from '@google/generative-ai';
+
+// Override so the .env value always wins over any stale env var (e.g. one
+// exported in ~/.bashrc) that would otherwise make the API key invalid.
+dotenv.config({ override: true });
 
 const key = process.env.GEMINI_API_KEY || '';
 const models = [
-  process.env.GEMINI_MODEL || 'gemini-2.0-flash',
-  'gemini-2.5-flash',
+  process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+  'gemini-2.5-flash-lite',
   'gemini-1.5-flash',
 ];
 
